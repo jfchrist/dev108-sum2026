@@ -3,33 +3,49 @@
 # be sure to follow along with my video demonstration video in our Canvas assignment instructions if you need help
 
 # display a welcome message
-print("The Test Scores application")
+print("The Test Scores Calculator")
 print()
 print("Enter test scores")
-print("Enter 999 to end input")
+print("Enter 'end' to end input")
 print("======================")
 
-# initialize variables
-counter = 0
-score_total = 0
-test_score = 0
 
-while test_score != 999:
-    test_score = int(input("Enter test score: "))
-    if test_score >= 0 and test_score <= 100:
-        score_total += test_score
-        counter += 1
-    elif test_score == 999:
-        break
+while True:
+    # initialize variables
+    counter = 0
+    score_total = 0
+    test_score = 0
+    while True:
+        test_score = input("Enter test score: ")
+        if test_score == "end":
+            break
+        else:
+            test_score = int(test_score)
+            if test_score >= 0 and test_score <= 100:
+                score_total += test_score
+                counter += 1
+            else:
+                print("Test score must be from 0 through 100. Score discarded. Try again.")
+                continue
+
+    # calculate average score and validate
+    if score_total == 0 or counter == 0:
+        print("Sorry, the Program needs at least one valid score to operate.")
+        continue
     else:
-        print("Test score must be from 0 through 100. Score discarded. Try again.")
-
-# calculate average score
-average_score = round(score_total / counter)
-                
-# format and display the result
-print("======================")
-print("Total Score:", score_total,
-      "\nAverage Score:", average_score)
+        average_score = round(score_total / counter)
+                    
+    # format and display the result
+    print("======================")
+    print("Total Score:", score_total,
+        "\nAverage Score:", average_score)
+    
+    # ask user if they would like to input again
+    print("======================")
+    answer = input("Would you like to input more test scores? y/n?: ")
+    if answer.lower() == "y":
+        continue
+    else:
+        break
 print()
-print("Bye")
+print("Good-Bye!")
