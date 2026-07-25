@@ -28,7 +28,7 @@ def play_game_easy():
     print(f"I'm thinking of a number from 1 to 10...\n")
     count = 1
 
-    while (guess := int(input("Your guess: "))) != number:
+    while (guess := int(input("Your guess: "))) != number and count < 5:
         if guess < number:
             print("Too low. Try again!")
             count += 1
@@ -58,7 +58,7 @@ def play_game_hard():
     print(f"I'm thinking of a number from 1 to 1000...\n")
     count = 1
 
-    while (guess := int(input("Your guess: "))) != number:
+    while (guess := int(input("Your guess: "))) != number and count <10:
         if guess < number:
             print("Too low. Try again!")
             count += 1
