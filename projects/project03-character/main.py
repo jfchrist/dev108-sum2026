@@ -5,7 +5,9 @@
 
 import random
 
+#dire wolf abilities
 dire_wolf = [6,15,18,3,12,7]
+
 
 #generate random ability score 1-20
 def gen_ability_score():
@@ -14,7 +16,7 @@ def gen_ability_score():
 
 #function to pick random class
 def gen_class():
-    cClass = ["paladin 🛡️","rogue 🗡️","wizard 🧙","warlock 🔮","barbarian 🪓","artificer 🔥","fighter ⚔️","cleric 🕊️","druid 🍃", "monk 🙏"]
+    cClass = ["paladin 🛡️","rogue 🗡️","wizard 🧙","warlock 🔮",'sorcerer 🧙‍♂️',"barbarian 🪓","artificer 🔥","fighter ⚔️","cleric 🕊️","druid 🍃", "monk 🙏"]
     choice = random.choice(cClass)
     return choice
 
@@ -25,35 +27,99 @@ def gen_race():
     return choice
 
 #function to demonstrate mock battle
-def battle(dex,strength,name,con,):
-        print("""Dire Wolf Stats:
+def battle(dex,strength,name,con,cClass):
+    #initialize dire wolf health
+    direHealth = 18
+    print("""Dire Wolf Stats:
     Strength:\t6
     Dexterity:\t15
-    Health:\t\t18\n""")
-        if dire_wolf[1] > dex:
-            print("The wolf strikes first!")
-            print(f"{name}'s Health:\t{con-dire_wolf[0]}")
-            if con - dire_wolf[0] <= 0:
-                print(f"{name} has lost. Better luck next time!")
-            else:
-                print(f"\nNow is {name}'s chance...")
-                print(f"Dire Wolf's Health: {dire_wolf[2] - strength}")
-                if dire_wolf[2] - strength <= 0:
-                    print(f"{name} has defeated the dire wolf!")
+    Health:\t18""")
+    #if wolf is faster
+    if dire_wolf[1] > dex:
+            while direHealth >= 0 and con >= 0:
+                print("\nThe wolf strikes first!")
+                con -= dire_wolf[0]
+                print(f"{name}'s Health:\t{con}")
+
+                #random heal chance, 25%
+                if cClass == "cleric 🕊️" or cClass == 'paladin 🛡️':
+                    chance = random.randint(0,3)
+                    if chance == 1:
+                        con += 6
+                        print(f"\n{name} has healed themselves!")
+                        print(f"{name}'s Health: {con}")
+                    else:
+                        pass
                 else:
-                    print(f"\nThe injured Dire Wolf flees back to the woods. Perhaps {name} should take this as a victory...")
-        else:
-            print(f"{name} strikes first!")
-            print(f"Dire Wolf's Health: {dire_wolf[2] - strength}")
-            if dire_wolf[2] - strength <= 0:
+                    pass
+
+                if con<= 0:
+                    print(f"\n{name} has lost. Better luck next time!")
+                    break
+                else:
+                    print(f"\nNow is {name}'s chance...they strike!")
+                    direHealth -= strength
+                    print(f"Dire Wolf's Health: {direHealth}")
+
+                    #random fireball chance, 50%
+                    if cClass == 'warlock 🔮' or cClass == 'sorcerer 🧙‍♂️' or cClass == 'wizard 🧙':
+                        chance = random.randint(0,1)
+                        if chance == 1:
+                            direHealth -= 25
+                            print(f"\n{name} casts a mighty fireball!")
+                            print(f"Dire Wolf Health: {direHealth}")
+                        else:
+                            pass
+                    else:
+                        pass
+                    if direHealth <= 0:
+                        print(f"\n{name} has defeated the dire wolf!")
+                        break
+                    else:
+                        continue
+    #if character is faster
+    else:
+        while direHealth >= 0 and con >= 0:
+            print(f"\n{name} strikes first!")
+            direHealth -= strength
+            print(f"Dire Wolf's Health: {direHealth}")
+            #random fireball chance, 50%
+            if cClass == 'warlock 🔮' or cClass == 'sorcerer 🧙‍♂️' or cClass == 'wizard 🧙':
+                    chance = random.randint(0,1)
+                    if chance == 1:
+                        direHealth -= 25
+                        print(f"\n{name} casts a mighty fireball!")
+                        print(f"Dire Wolf Health: {direHealth}")
+                    else:
+                        pass
+            else:
+                    pass
+            if direHealth <= 0:
                 print(f"{name} has defeated the dire wolf!")
+                break
             else:
                 print(f"\nThe wolf bites back!")
-                print(f"{name}'s Health:\t{con-dire_wolf[0]}")
-                if con - dire_wolf[0] <= 0:
-                    print(f"{name} has lost. Better luck next time!")
+                con-=dire_wolf[0]
+                print(f"{name}'s Health:\t{con}")
+                #random heal chance, 25%
+                if cClass == "cleric 🕊️" or cClass == 'paladin 🛡️':
+                    chance = random.randint(0,3)
+                    if chance == 1:
+                        con += 6
+                        print(f"\n{name} has healed themselves!")
+                        print(f"{name}'s Health: {con}")
+                    else:
+                        pass
                 else:
-                    print(f"\nThe injured Dire Wolf flees back to the woods. Perhaps {name} should take this as a victory...")
+                    pass
+                if con<= 0:
+                    print(f"\n{name} has lost. Better luck next time!")
+                    break
+                if con <= 0:
+                    print(f"\n{name} has lost. Better luck next time!")
+                    break
+                else:
+                    continue
 
 def main():
     #title
@@ -74,7 +140,7 @@ def main():
             race = gen_race()
             strength = gen_ability_score()
             dex = gen_ability_score()
-            con = gen_ability_score()
+            con = gen_ability_score() + 5
             intel = gen_ability_score()
             wis = gen_ability_score()
             char = gen_ability_score()
@@ -92,7 +158,7 @@ def main():
             if fight =="y":
                 print("\t* * * To Battle! * * *\n")
                 print(f"\t{name} vs Dire Wolf\n")
-                battle(dex,strength,name,con)
+                battle(dex,strength,name,con,cClass)
             else:
                 print("Alrighty then\n")
 
