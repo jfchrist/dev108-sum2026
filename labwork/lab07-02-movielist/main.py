@@ -3,12 +3,15 @@
 # Be sure to follow the instructions in our book to complete this lab activity.
 
 # Additionally, add a program title to the output please for the best user experience.
+def display_title():
+    print("\nMovie Library\n")
 
 def display_menu():
     print("COMMAND MENU")
     print("list - List all movies")
     print("add -  Add a movie")
     print("del -  Delete a movie")
+    print("find - Find movies by year")
     print("exit - Exit program")
     print()    
 
@@ -20,16 +23,18 @@ def list(movie_list):
         i = 1
         for movie in movie_list:
             row = movie
-            print(str(i) + ". " + row[0] + " (" + str(row[1]) + ")")
+            print(str(i) + ". " + row[0] + " (" + str(row[1]) + ")" + " @ " + str(row[2]))
             i += 1
         print()
 
 def add(movie_list):
     name = input("Name: ")
-    year = input("Year: ")
+    year = int(input("Year: "))
+    price = float(input("Price: "))
     movie = []
     movie.append(name)
     movie.append(year)
+    movie.append(price)
     movie_list.append(movie)
     print(movie[0] + " was added.\n")
     
@@ -40,12 +45,21 @@ def delete(movie_list):
     else:
         movie = movie_list.pop(number-1)
         print(movie[0] + " was deleted.\n")
+
+def find(movie_list):
+    year = int(input("Year: "))
+    for i in movie_list:
+        if i[1] == year:
+            print(i[0] + " was released in " + str(year))
+            continue
+    print("End of found movies.")
+    print()
         
 def main():
-    movie_list = [["Monty Python and the Holy Grail", 1975],
-                  ["On the Waterfront", 1954],
-                  ["Cat on a Hot Tin Roof", 1958]]
-    
+    movie_list = [["Monty Python and the Holy Grail", 1975, 9.95],
+                  ["On the Waterfront", 1954, 5.59],
+                  ["Cat on a Hot Tin Roof", 1958, 7.95]]
+    display_title()
     display_menu()
     while True:        
         command = input("Command: ")
@@ -55,6 +69,8 @@ def main():
             add(movie_list)
         elif command == "del":
             delete(movie_list)
+        elif command == "find":
+            find(movie_list)
         elif command == "exit":
             break
         else:
