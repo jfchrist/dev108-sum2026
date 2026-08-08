@@ -53,7 +53,7 @@ def battle(dex,strength,name,con,cClass):
                 else:
                     pass
 
-                if con<= 0:
+                if con <= 0:
                     print(f"\n{name} has lost. Better luck next time!")
                     break
                 else:
@@ -67,7 +67,7 @@ def battle(dex,strength,name,con,cClass):
                         if chance == 1:
                             direHealth -= 25
                             print(f"\n{name} casts a mighty fireball!")
-                            print(f"Dire Wolf Health: {direHealth}")
+                            print(f"\nDire Wolf Health: {direHealth}")
                         else:
                             pass
                     else:
@@ -112,9 +112,6 @@ def battle(dex,strength,name,con,cClass):
                         pass
                 else:
                     pass
-                if con<= 0:
-                    print(f"\n{name} has lost. Better luck next time!")
-                    break
                 if con <= 0:
                     print(f"\n{name} has lost. Better luck next time!")
                     break
